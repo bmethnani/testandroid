@@ -1,4 +1,4 @@
-package com.example.root.testprojectforgithub;
+package com.example.root.testprojectforgithub.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,19 +8,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.root.testprojectforgithub.Presenter.MainPresenter;
+import com.example.root.testprojectforgithub.R;
+
+public class MainActivity extends AppCompatActivity implements IViewMain{
 
     Button mbutton;
+    MainPresenter mainPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //the presenter init
+        mainPresenter = new MainPresenter(this);
+
         mbutton = (Button) findViewById(R.id.button);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(),"this is spata !!",Toast.LENGTH_LONG);
+                mainPresenter.showToast();
+
             }
         });
     }
@@ -45,5 +55,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showToast() {
+        Toast.makeText(getApplicationContext(),"this is spata !!",Toast.LENGTH_LONG).show();
     }
 }
